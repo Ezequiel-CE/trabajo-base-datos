@@ -9,12 +9,7 @@ import {
 
 const personaRouter = Router();
 
-personaRouter
-  .route('/')
-  .get(getPersonas)
-  .post(postPersonas)
-  .patch(patchPersonas)
-  .delete(deletePersonas);
-personaRouter.get('/:id', getPersona);
+personaRouter.route('/').get(getPersonas).post(postPersonas);
+personaRouter.route('/:id').get(getPersona).patch(patchPersonas).delete(deletePersonas);
 
 export default personaRouter;

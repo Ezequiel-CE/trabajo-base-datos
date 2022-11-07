@@ -12,7 +12,7 @@ const Persona = db.define(
     },
     nombre: { field: 'nombre', type: DataTypes.STRING(60) },
     apellido: { field: 'apellido', type: DataTypes.STRING(60) },
-    dni: { field: 'dni', type: DataTypes.INTEGER(60) },
+    dni: { field: 'dni', type: DataTypes.INTEGER(60), unique: true },
     fecha_nacimiento: { field: 'fecha_nacimiento', type: DataTypes.DATEONLY() },
     email: { field: 'email', type: DataTypes.STRING(60) },
     telefono: { field: 'telefono', type: DataTypes.STRING(60) },
