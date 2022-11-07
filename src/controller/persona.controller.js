@@ -2,9 +2,7 @@ import model from '../models/index.js';
 
 export const getPersonas = async (req, res) => {
   try {
-    const personas = await model.Persona.findAll({
-      include: { model: model.Tramite, as: 'tramites', required: true },
-    });
+    const personas = await model.Persona.findAll({});
 
     res.status(200).json({ mensaje: 'listo de personas', personas });
   } catch (error) {
@@ -15,7 +13,10 @@ export const getPersonas = async (req, res) => {
 export const getPersona = async (req, res) => {
   const { id } = req.params;
   try {
-    const persona = await model.Persona.findOne({ where: { id_persona: id } });
+    const persona = await model.Persona.findOne({
+      where: { id_persona: id },
+      include: { model: model.Tramite, as: 'tramites', required: true },
+    });
 
     if (persona) {
       return res.status(200).json({ mensaje: 'persona', persona });

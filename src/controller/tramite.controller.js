@@ -1,8 +1,14 @@
 import model from '../models/index.js';
 
 export const getTramites = async (req, res) => {
+  const { tipo } = req.query;
   try {
-    const tramites = await model.Tramite.findAll();
+    let tramites;
+    if (tipo) {
+      tramites = await model.Tramite.findAll({ where: { tipo_tramite: tipo } });
+    } else {
+      tramites = await model.Tramite.findAll();
+    }
 
     res.status(200).json({ mensaje: 'listo de tramites', tramites });
   } catch (error) {
