@@ -44,11 +44,19 @@ export const getTipoTramite = async (req, res) => {
 
 export const postTramite = async (req, res) => {
   try {
-    await model.Tramite.create(req.body);
+    const persona = await model.Persona.findOne({
+      where: { dni: req.body.dni },
+    });
 
-    res.status(200).json({ mensaje: 'se creo el tramite' });
+    if (!persona) {
+      return res.status(200).json({ mensaje: 'el dni de la persona no existe' });
+    }
+
+    await model.Tramite.create({ personaId: persona.id, ...req.body });
+
+    return res.status(200).json({ mensaje: 'se creo el tramite' });
   } catch (error) {
-    res.status(400).send('no se puedo crear tramite');
+    return res.status(400).send('no se puedo crear tramite');
   }
 };
 

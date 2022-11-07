@@ -20,7 +20,7 @@ const Tramite = db.define(
       field: 'fecha_cierre',
       type: DataTypes.DATEONLY(),
     },
-    dni_persona: { field: 'dni_persona', type: DataTypes.INTEGER(60) },
+    dni: { field: 'dni_persona', type: DataTypes.INTEGER(60) },
   },
   { tableName: 'tramite', timestamps: false },
 );
