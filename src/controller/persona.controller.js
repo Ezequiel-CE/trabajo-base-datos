@@ -1,5 +1,7 @@
 import model from '../models/index.js';
 
+// endpoint de listado de personas
+
 export const getPersonas = async (req, res) => {
   try {
     const personas = await model.Persona.findAll({});
@@ -9,6 +11,8 @@ export const getPersonas = async (req, res) => {
     res.status(400).send('error endpoint ');
   }
 };
+
+// endpoint de la persona con sus tramites
 
 export const getPersona = async (req, res) => {
   const { id } = req.params;
@@ -27,6 +31,8 @@ export const getPersona = async (req, res) => {
     return res.status(400).send('error al buscar persona');
   }
 };
+
+// endpoint para crear persona
 
 export const postPersonas = async (req, res) => {
   try {
@@ -59,6 +65,8 @@ export const patchPersonas = async (req, res) => {
     return res.status(400).send('no se puedo editar a la persona');
   }
 };
+
+// endpoint para borrar persona
 
 export const deletePersonas = async (req, res) => {
   const { id } = req.params;
