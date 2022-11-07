@@ -1,25 +1,22 @@
 import model from '../models/index.js';
 
 export const getTramites = async (req, res) => {
-  const { tipo } = req.query;
   try {
-    let tramites;
-    if (tipo) {
-      tramites = await model.Tramite.findAll({ where: { tipo_tramite: tipo } });
-    } else {
-      tramites = await model.Tramite.findAll();
-    }
+    const tramites = await model.Tramite.findAll();
 
     res.status(200).json({ mensaje: 'listo de tramites', tramites });
   } catch (error) {
-    res.status(400).send('error endpoint ');
+    res.status(400).send('error al buscar tramite ');
   }
 };
 
 export const getTramite = async (req, res) => {
   const { id } = req.params;
   try {
-    const tramite = await model.Tramite.findOne({ where: { id } });
+    const tramite = await model.Tramite.findOne({
+      where: { id },
+      include: { model: model.TipoTramite, as: 'tipo' },
+    });
 
     if (tramite) {
       return res.status(200).json({ mensaje: 'tramite encontrado', tramite });
@@ -31,13 +28,27 @@ export const getTramite = async (req, res) => {
   }
 };
 
+export const getTipoTramite = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const tramite = await model.TipoTramite.findOne({
+      where: { id },
+      include: { model: model.Tramite, as: 'tramites' },
+    });
+
+    res.status(200).json({ mensaje: 'tramite encontrado', tramite });
+  } catch (error) {
+    res.status(400).send('error al buscar persona');
+  }
+};
+
 export const postTramite = async (req, res) => {
   try {
     await model.Tramite.create(req.body);
 
-    res.status(200).json({ mensaje: 'se creo la tramite' });
+    res.status(200).json({ mensaje: 'se creo el tramite' });
   } catch (error) {
-    res.status(400).send('tramite ya existe');
+    res.status(400).send('no se puedo crear tramite');
   }
 };
 

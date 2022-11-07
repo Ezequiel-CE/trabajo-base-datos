@@ -1,6 +1,5 @@
 import sequelize, { DataTypes } from 'sequelize';
 import db from '../cfg/database.js';
-import Persona from './persona.model.js';
 
 const Tramite = db.define(
   'tramite',
@@ -22,14 +21,6 @@ const Tramite = db.define(
       type: DataTypes.DATEONLY(),
     },
     dni_persona: { field: 'dni_persona', type: DataTypes.INTEGER(60) },
-    tipo_tramite: { field: 'tipo_tramite', type: DataTypes.STRING(60) },
-    personaId: {
-      field: 'id_persona',
-      type: DataTypes.INTEGER,
-      references: { model: Persona },
-      onUpdate: 'CASCADE',
-      onDelete: 'RESTRICT',
-    },
   },
   { tableName: 'tramite', timestamps: false },
 );

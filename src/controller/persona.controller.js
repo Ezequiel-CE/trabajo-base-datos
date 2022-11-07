@@ -15,7 +15,7 @@ export const getPersona = async (req, res) => {
   try {
     const persona = await model.Persona.findOne({
       where: { id_persona: id },
-      include: { model: model.Tramite, as: 'tramites', required: true },
+      include: { model: model.Tramite, as: 'tramites' },
     });
 
     if (persona) {
