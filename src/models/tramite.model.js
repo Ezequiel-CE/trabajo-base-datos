@@ -1,17 +1,17 @@
 import sequelize, { DataTypes } from 'sequelize';
 import db from '../cfg/database.js';
+import Persona from './persona.model.js';
 
 const Tramite = db.define(
-  'Tramite',
+  'tramite',
   {
-    id_tramite: {
+    id: {
       field: 'id_tramite',
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
     descripcion: { field: 'descripcion', type: DataTypes.STRING(60) },
-    apellido: { field: 'apellido', type: DataTypes.STRING(60) },
     fecha_alta: {
       field: 'fecha_alta',
       type: DataTypes.DATEONLY(),
@@ -22,9 +22,14 @@ const Tramite = db.define(
       type: DataTypes.DATEONLY(),
     },
     dni_persona: { field: 'dni_persona', type: DataTypes.INTEGER(60) },
-    telefono: { field: 'telefono', type: DataTypes.STRING(60) },
     tipo_tramite: { field: 'tipo_tramite', type: DataTypes.STRING(60) },
-    id_persona: { field: 'id_persona', type: DataTypes.INTEGER },
+    personaId: {
+      field: 'id_persona',
+      type: DataTypes.INTEGER,
+      references: { model: Persona },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT',
+    },
   },
   { tableName: 'tramite', timestamps: false },
 );

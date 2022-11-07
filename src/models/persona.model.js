@@ -2,9 +2,9 @@ import { DataTypes } from 'sequelize';
 import db from '../cfg/database.js';
 
 const Persona = db.define(
-  'Persona',
+  'persona',
   {
-    id_persona: {
+    id: {
       field: 'id_persona',
       type: DataTypes.INTEGER,
       autoIncrement: true,

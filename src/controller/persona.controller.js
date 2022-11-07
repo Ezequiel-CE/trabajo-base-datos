@@ -2,7 +2,9 @@ import model from '../models/index.js';
 
 export const getPersonas = async (req, res) => {
   try {
-    const personas = await model.Persona.findAll();
+    const personas = await model.Persona.findAll({
+      include: { model: model.Tramite, as: 'tramites', required: true },
+    });
 
     res.status(200).json({ mensaje: 'listo de personas', personas });
   } catch (error) {

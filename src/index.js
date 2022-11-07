@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import db from './cfg/database.js';
 import personaRouter from './routes/persona.router.js';
+import tramiteRouter from './routes/tramite.router.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,6 +15,7 @@ app.get('/', (_, res) => {
 });
 
 app.use('/personas', personaRouter);
+app.use('/tramites', tramiteRouter);
 
 app.use('*', (_, res) => {
   res.status(404).send('<h1>OPS! the endpoint does not exist :(</h1>');
